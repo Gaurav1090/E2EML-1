@@ -29,6 +29,8 @@ stages:
         artifacts.split_data.processed_data_dir: artifacts/processed_data
         artifacts.split_data.test_path: artifacts/processed_data/test.csv
         artifacts.split_data.train_path: artifacts/processed_data/train.csv
+        base.random_state: 42
+        base.test_size: 0.2
     outs:
     - path: artifacts/processed_data/test.csv
       md5: 4bccf4d668cdc60115de42ba74d416ab
