@@ -8,3 +8,37 @@ stages:
       - artifacts.raw_local_data_dir
     outs:
       - artifacts/raw_local_data_dir/winequality.csv
+
+  split_data:
+    cmd: python src/stage02_split_data.py --config=params.yaml
+    deps:
+      - src/stage02_split_data.py
+      - artifacts/raw_local_data_dir/winequality.csv
+    params:
+      - base.test_size
+      - base.random_state
+      - artifacts.raw_local_data_dir
+      - artifacts.split_data.processed_data_dir
+      - artifacts.split_data.train_path
+      - artifacts.split_data.test_path
+    outs:
+      - artifacts/processed_data/train.csv
+      - artifacts/processed_data/test.csv
+
+  train:
+    cmd: python src/stage03_train.py --config=params.yaml
+    deps:
+      - src/stage03_train.py
+      - artifacts/processed_data/train.csv
+    params:
+      - base.target_col
+      - base.random_state
+      - artifacts.split_data.train_path
+      - estimators.ElasticNet.params.alpha
+      - estimators.ElasticNet.params.l1_ratio
+    metrics:
+      - artifacts/report/params.json:
+          cache: false
+
+    outs:
+      - artifacts/saved_models/model.joblib
