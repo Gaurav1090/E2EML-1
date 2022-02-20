@@ -1,0 +1,10 @@
+stages:
+  load_data:
+    cmd: python src/stage01_load_and_save.py --config=params.yaml
+    deps:
+      - src/stage01_load_and_save.py
+    params:
+      - data_source.cloud_storage
+      - artifacts.raw_local_data_dir
+    outs:
+      - artifacts/raw_local_data_dir/winequality.csv
