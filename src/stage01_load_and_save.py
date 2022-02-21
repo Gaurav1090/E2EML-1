@@ -3,6 +3,8 @@ import argparse
 from src.utils.common_utils import read_params, clean_prev_dir_if_exist, save_local_df, create_dir
 import logging
 
+logging_str = "[%(asctime)s: %(levelname)s: %(module)s]: %(message)s"
+logging.basicConfig(level=logging.DEBUG,format=logging_str)
 
 def get_data(config_path):
     config = read_params(config_path)
@@ -24,5 +26,7 @@ if __name__ == '__main__':
 
     try:
         data = get_data(config_path=parsed_args.config)
+        logging.info(f"Stage01: Reading and writing Raw Data Completed")
     except Exception as e:
-        raise e
+        logging.error(e)
+

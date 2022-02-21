@@ -4,6 +4,8 @@ from src.utils.common_utils import read_params, save_local_df, create_dir
 from sklearn.model_selection import train_test_split
 import logging
 
+logging_str = "[%(asctime)s: %(levelname)s: %(module)s]: %(message)s"
+logging.basicConfig(level=logging.DEBUG,format=logging_str)
 
 def split_and_save_data(config_path):
     config = read_params(config_path)
@@ -32,5 +34,6 @@ if __name__ == '__main__':
 
     try:
         data = split_and_save_data(config_path=parsed_args.config)
+        logging.info(f"Stage02: Splitting the Data into Train & Test is completed")
     except Exception as e:
-        raise e
+        logging.error(e)

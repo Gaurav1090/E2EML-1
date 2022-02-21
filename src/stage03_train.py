@@ -3,13 +3,16 @@ import argparse
 from src.utils.common_utils import read_params, save_reports, create_dir
 from sklearn.linear_model import ElasticNet
 import joblib
+import logging
 
+logging_str = "[%(asctime)s: %(levelname)s: %(module)s]: %(message)s"
+logging.basicConfig(level=logging.DEBUG,format=logging_str)
 
 def train(config_path):
     config = read_params(config_path)
     artifacts = config["artifacts"]
     split_data = artifacts["split_data"]
-    train_data_path = split_data["test_path"]
+    train_data_path = split_data["train_path"]
     base = config["base"]
     target = base["target_col"]
     random_seed = base["random_state"]
@@ -47,5 +50,6 @@ if __name__ == '__main__':
 
     try:
         train(config_path=parsed_args.config)
+        logging.info(f"Stage03: Training of the model is complete")
     except Exception as e:
-        raise e
+        logging.error(e)
