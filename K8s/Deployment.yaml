@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: winequalitypred
-        image: gcr.io/endtoendml-341218/winequalitypred:v1
+        image: gcr.io/endtoendml-341218/winequalitypred:v2
         ports:
         - containerPort: 5001
