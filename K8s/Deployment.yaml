@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: winequalitypred
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: winequalitypred
+  template:
+    metadata:
+      labels:
+        app: winequalitypred
+    spec:
+      containers:
+      - name: winequalitypred
+        image: gcr.io/endtoendml-341218/winequalitypred:v1
+        ports:
+        - containerPort: 5001

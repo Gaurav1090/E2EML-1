@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: winequalitypred
+spec:
+  type: LoadBalancer
+  selector:
+    app: winequalitypred
+  ports:
+  - port: 80
+    targetPort: 5001
